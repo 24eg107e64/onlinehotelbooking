@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Online Hotel Booking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>🏨 Online Hotel Booking</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="hotels.html">Hotels</a>
+
+        <a href="mybookings.html">My Bookings</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="signup.html">Signup</a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- Login Form -->
+
+<div class="form-container">
+
+    <h1>Welcome Back</h1>
+
+    <p style="text-align:center; color:#666; margin-bottom:20px;">
+
+        Login to continue booking your hotel.
+
+    </p>
+
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required>
+
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        required>
+
+
+    <button onclick="login()">
+
+        Login
+
+    </button>
+
+
+    <p id="message"></p>
+
+
+    <p style="text-align:center; margin-top:20px;">
+
+        Don't have an account?
+
+        <a href="signup.html">
+            Create Account
+        </a>
+
+    </p>
+
+</div>
+
+
+
+<script>
+
+
+function login() {
+
+
+    const email =
+        document.getElementById("email").value;
+
+
+    const password =
+        document.getElementById("password").value;
+
+
+
+    /* Check empty fields */
+
+    if (
+        email === "" ||
+        password === ""
+    ) {
+
+        document.getElementById("message")
+            .innerText =
+            "Please enter email and password.";
+
+        return;
+
+    }
+
+
+
+    const user = {
+
+        email: email,
+
+        password: password
+
+    };
+
+
+
+    /* Send login request */
+
+    fetch("/api/users/login", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/json"
+
+        },
+
+        body:
+            JSON.stringify(user)
+
+    })
+
+
+    .then(response =>
+        response.text()
+    )
+
+
+    .then(data => {
+
+
+        document.getElementById("message")
+            .innerText = data;
+
+
+
+        if (data === "Login successful") {
+
+
+            /* Save logged-in email */
+
+            localStorage.setItem(
+                "userEmail",
+                email
+            );
+
+
+
+            /* Go to hotels */
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "hotels.html";
+
+            }, 1000);
+
+        }
+
+    })
+
+
+    .catch(error => {
+
+
+        console.error(error);
+
+
+        document.getElementById("message")
+            .innerText =
+            "Unable to connect to server.";
+
+    });
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Hotel - Online Hotel Booking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>🏨 Online Hotel Booking</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="hotels.html">Hotels</a>
+
+        <a href="login.html">Login</a>
+
+    </div>
+
+</nav>
+
+
+<!-- Booking Form -->
+
+<div class="form-container">
+
+    <h1>Confirm Your Booking</h1>
+
+
+    <!-- Hotel Details -->
+
+    <p>
+        <strong>Hotel:</strong>
+        <span id="hotel"></span>
+    </p>
+
+
+    <p>
+        <strong>Room:</strong>
+        <span id="room"></span>
+    </p>
+
+
+    <p>
+        <strong>Price:</strong>
+        ₹<span id="price"></span> per night
+    </p>
+
+
+    <!-- Customer Name -->
+
+    <input
+        type="text"
+        id="customerName"
+        placeholder="Enter your name"
+        required>
+
+
+    <!-- Email -->
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        required>
+
+
+    <!-- Check-in -->
+
+    <label>
+        Check-in Date
+    </label>
+
+    <input
+        type="date"
+        id="checkIn"
+        required>
+
+
+    <!-- Check-out -->
+
+    <label>
+        Check-out Date
+    </label>
+
+    <input
+        type="date"
+        id="checkOut"
+        required>
+
+
+    <!-- Confirm Button -->
+
+    <button onclick="confirmBooking()">
+
+        Confirm Booking
+
+    </button>
+
+
+    <!-- Message -->
+
+    <p id="message"></p>
+
+</div>
+
+
+<script>
+
+
+/* =========================================
+   DISPLAY SELECTED HOTEL DETAILS
+========================================= */
+
+
+document.getElementById("hotel").innerText =
+    localStorage.getItem("hotelName");
+
+
+document.getElementById("room").innerText =
+    localStorage.getItem("roomType");
+
+
+document.getElementById("price").innerText =
+    localStorage.getItem("price");
+
+
+
+/* =========================================
+   GET TODAY'S DATE
+========================================= */
+
+
+const today =
+    new Date().toISOString().split("T")[0];
+
+
+
+/* =========================================
+   PREVENT PAST CHECK-IN DATE
+========================================= */
+
+
+document.getElementById("checkIn").min =
+    today;
+
+
+
+/* =========================================
+   PREVENT PAST CHECK-OUT DATE
+========================================= */
+
+
+document.getElementById("checkOut").min =
+    today;
+
+
+
+/* =========================================
+   CHECK-OUT MUST BE AFTER CHECK-IN
+========================================= */
+
+
+document.getElementById("checkIn")
+    .addEventListener("change", function () {
+
+        const checkInDate = this.value;
+
+        document.getElementById("checkOut").min =
+            checkInDate;
+
+    });
+
+
+
+/* =========================================
+   CONFIRM BOOKING
+========================================= */
+
+
+function confirmBooking() {
+
+
+    const customerName =
+        document.getElementById("customerName").value;
+
+
+    const email =
+        document.getElementById("email").value;
+
+
+    const checkIn =
+        document.getElementById("checkIn").value;
+
+
+    const checkOut =
+        document.getElementById("checkOut").value;
+
+
+
+    /* =====================================
+       CHECK EMPTY FIELDS
+    ===================================== */
+
+
+    if (
+        customerName === "" ||
+        email === "" ||
+        checkIn === "" ||
+        checkOut === ""
+    ) {
+
+        document.getElementById("message").innerText =
+            "Please fill in all fields.";
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       CHECK PAST DATE
+    ===================================== */
+
+
+    if (checkIn < today) {
+
+        document.getElementById("message").innerText =
+            "Check-in date cannot be in the past.";
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       CHECK CHECK-OUT DATE
+    ===================================== */
+
+
+    if (checkOut <= checkIn) {
+
+        document.getElementById("message").innerText =
+            "Check-out date must be after check-in date.";
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       CREATE BOOKING OBJECT
+    ===================================== */
+
+
+    const booking = {
+
+        customerName: customerName,
+
+        email: email,
+
+        hotelName:
+            localStorage.getItem("hotelName"),
+
+        roomType:
+            localStorage.getItem("roomType"),
+
+        checkIn: checkIn,
+
+        checkOut: checkOut,
+
+        price:
+            Number(
+                localStorage.getItem("price")
+            )
+
+    };
+
+
+
+    /* =====================================
+       SEND BOOKING TO SPRING BOOT
+    ===================================== */
+
+
+    fetch("/api/bookings", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/json"
+
+        },
+
+        body:
+            JSON.stringify(booking)
+
+    })
+
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Booking request failed"
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+
+    .then(data => {
+
+
+        document.getElementById("message")
+            .innerText =
+            "Booking successful! Booking ID: "
+            + data.id;
+
+
+    })
+
+
+    .catch(error => {
+
+
+        console.error(error);
+
+
+        document.getElementById("message")
+            .innerText =
+            "Booking failed. Please try again.";
+
+    });
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

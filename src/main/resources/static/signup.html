@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Signup - Online Hotel Booking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>🏨 Online Hotel Booking</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="hotels.html">Hotels</a>
+
+        <a href="mybookings.html">My Bookings</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="signup.html">Signup</a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- Signup Form -->
+
+<div class="form-container">
+
+    <h1>Create Account</h1>
+
+    <p style="text-align:center; color:#666; margin-bottom:20px;">
+
+        Create an account to start booking hotels.
+
+    </p>
+
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Full Name"
+        required>
+
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email Address"
+        required>
+
+
+    <input
+        type="text"
+        id="phone"
+        placeholder="Phone Number"
+        required>
+
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Create Password"
+        required>
+
+
+    <button onclick="signup()">
+
+        Create Account
+
+    </button>
+
+
+    <p id="message"></p>
+
+
+    <p style="text-align:center; margin-top:20px;">
+
+        Already have an account?
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </p>
+
+</div>
+
+
+
+<script>
+
+
+function signup() {
+
+
+    const name =
+        document.getElementById("name").value;
+
+
+    const email =
+        document.getElementById("email").value;
+
+
+    const phone =
+        document.getElementById("phone").value;
+
+
+    const password =
+        document.getElementById("password").value;
+
+
+
+    /* Check empty fields */
+
+    if (
+        name === "" ||
+        email === "" ||
+        phone === "" ||
+        password === ""
+    ) {
+
+        document.getElementById("message")
+            .innerText =
+            "Please fill in all fields.";
+
+        return;
+
+    }
+
+
+
+    const user = {
+
+        name: name,
+
+        email: email,
+
+        phone: phone,
+
+        password: password
+
+    };
+
+
+
+    /* Send signup request */
+
+    fetch("/api/users/signup", {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type":
+                "application/json"
+
+        },
+
+        body:
+            JSON.stringify(user)
+
+    })
+
+
+    .then(response =>
+        response.text()
+    )
+
+
+    .then(data => {
+
+
+        document.getElementById("message")
+            .innerText = data;
+
+
+
+        if (data === "Signup successful") {
+
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "login.html";
+
+            }, 1000);
+
+        }
+
+    })
+
+
+    .catch(error => {
+
+
+        console.error(error);
+
+
+        document.getElementById("message")
+            .innerText =
+            "Unable to connect to server.";
+
+    });
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

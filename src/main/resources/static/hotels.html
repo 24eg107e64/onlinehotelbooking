@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Available Hotels</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<!-- Navigation -->
+
+<nav>
+
+    <h2>🏨 Online Hotel Booking</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="hotels.html">Hotels</a>
+
+        <a href="mybookings.html">My Bookings</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="signup.html">Signup</a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- Hotels Section -->
+
+<div class="hotel-container">
+
+    <h1>Available Hotels</h1>
+
+
+    <!-- Hotel 1 -->
+
+    <div class="hotel-card">
+
+        <h2>🏨 Grand Palace Hotel</h2>
+
+        <p>📍 Hyderabad</p>
+
+        <p>🛏️ Deluxe Room</p>
+
+        <p>💰 ₹2,500 per night</p>
+
+        <p>
+            📶 Wi-Fi &nbsp; | &nbsp;
+            ❄️ AC &nbsp; | &nbsp;
+            🍽️ Restaurant
+        </p>
+
+        <button onclick="bookHotel(
+            'Grand Palace Hotel',
+            'Deluxe Room',
+            2500
+        )">
+
+            Book Now
+
+        </button>
+
+    </div>
+
+
+
+    <!-- Hotel 2 -->
+
+    <div class="hotel-card">
+
+        <h2>🏨 Royal Comfort Hotel</h2>
+
+        <p>📍 Hyderabad</p>
+
+        <p>🛏️ Premium Room</p>
+
+        <p>💰 ₹3,500 per night</p>
+
+        <p>
+            📶 Wi-Fi &nbsp; | &nbsp;
+            ❄️ AC &nbsp; | &nbsp;
+            🏊 Pool
+        </p>
+
+        <button onclick="bookHotel(
+            'Royal Comfort Hotel',
+            'Premium Room',
+            3500
+        )">
+
+            Book Now
+
+        </button>
+
+    </div>
+
+
+
+    <!-- Hotel 3 -->
+
+    <div class="hotel-card">
+
+        <h2>🏨 City View Hotel</h2>
+
+        <p>📍 Hyderabad</p>
+
+        <p>🛏️ Standard Room</p>
+
+        <p>💰 ₹1,800 per night</p>
+
+        <p>
+            📶 Wi-Fi &nbsp; | &nbsp;
+            ❄️ AC &nbsp; | &nbsp;
+            🚗 Parking
+        </p>
+
+        <button onclick="bookHotel(
+            'City View Hotel',
+            'Standard Room',
+            1800
+        )">
+
+            Book Now
+
+        </button>
+
+    </div>
+
+
+
+    <!-- Hotel 4 -->
+
+    <div class="hotel-card">
+
+        <h2>🏨 Lake View Residency</h2>
+
+        <p>📍 Hyderabad</p>
+
+        <p>🛏️ Executive Room</p>
+
+        <p>💰 ₹4,000 per night</p>
+
+        <p>
+            📶 Wi-Fi &nbsp; | &nbsp;
+            ❄️ AC &nbsp; | &nbsp;
+            🍳 Breakfast
+        </p>
+
+        <button onclick="bookHotel(
+            'Lake View Residency',
+            'Executive Room',
+            4000
+        )">
+
+            Book Now
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+function bookHotel(name, room, price) {
+
+
+    /* Check whether user is logged in */
+
+    if (!localStorage.getItem("userEmail")) {
+
+        alert("Please login first.");
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+
+    /* Save hotel information */
+
+    localStorage.setItem(
+        "hotelName",
+        name
+    );
+
+
+    localStorage.setItem(
+        "roomType",
+        room
+    );
+
+
+    localStorage.setItem(
+        "price",
+        price
+    );
+
+
+    /* Open booking page */
+
+    window.location.href =
+        "booking.html";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Bookings - Online Hotel Booking</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav>
+
+    <h2>🏨 Online Hotel Booking</h2>
+
+    <div>
+
+        <a href="index.html">Home</a>
+
+        <a href="hotels.html">Hotels</a>
+
+        <a href="mybooking.html">My Bookings</a>
+
+        <a href="login.html">Login</a>
+
+        <a href="signup.html">Signup</a>
+
+        <a href="#" onclick="logout()">Logout</a>
+
+    </div>
+
+</nav>
+
+
+<div class="hotel-container">
+
+    <h1>📋 My Bookings</h1>
+
+    <div id="bookings">
+
+        <p>Loading bookings...</p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const email = localStorage.getItem("userEmail");
+
+
+if (!email) {
+
+    document.getElementById("bookings").innerHTML = `
+
+        <div class="hotel-card">
+
+            <h2>🔐 Please Login</h2>
+
+            <p>
+                Please login to view your bookings.
+            </p>
+
+            <button onclick="goToLogin()">
+                Login
+            </button>
+
+        </div>
+
+    `;
+
+} else {
+
+    loadBookings();
+
+}
+
+
+function goToLogin() {
+
+    window.location.href = "login.html";
+
+}
+
+
+function loadBookings() {
+
+    fetch(
+        "/api/bookings/email/"
+        + encodeURIComponent(email)
+    )
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load bookings"
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(bookings => {
+
+        const container =
+            document.getElementById("bookings");
+
+
+        if (!bookings || bookings.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="hotel-card">
+
+                    <h2>📭 No Bookings Found</h2>
+
+                    <p>
+                        You have not made any bookings yet.
+                    </p>
+
+                    <button
+                        onclick="window.location.href='hotels.html'">
+
+                        Browse Hotels
+
+                    </button>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML = "";
+
+
+        bookings.forEach(function(booking) {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "hotel-card";
+
+
+            card.innerHTML = `
+
+                <h2>
+                    🏨 ${booking.hotelName}
+                </h2>
+
+                <p>
+                    <strong>Booking ID:</strong>
+                    ${booking.id}
+                </p>
+
+                <p>
+                    <strong>Customer:</strong>
+                    ${booking.customerName}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    ${booking.email}
+                </p>
+
+                <p>
+                    <strong>Room:</strong>
+                    ${booking.roomType}
+                </p>
+
+                <p>
+                    <strong>Check-in:</strong>
+                    ${booking.checkIn}
+                </p>
+
+                <p>
+                    <strong>Check-out:</strong>
+                    ${booking.checkOut}
+                </p>
+
+                <p>
+                    <strong>Total Price:</strong>
+                    ₹${Number(booking.price)
+                        .toLocaleString("en-IN")}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+
+                    <span style="color:green;">
+                        ✅ Confirmed
+                    </span>
+
+                </p>
+
+                <button
+                    type="button"
+                    onclick="cancelBooking(${booking.id})">
+
+                    ❌ Cancel Booking
+
+                </button>
+
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        document.getElementById("bookings")
+            .innerHTML = `
+
+            <div class="hotel-card">
+
+                <h2>❌ Unable to Load Bookings</h2>
+
+                <p>
+                    There was a problem connecting
+                    to the booking server.
+                </p>
+
+                <button onclick="loadBookings()">
+                    Try Again
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+function cancelBooking(id) {
+
+    const confirmation =
+        confirm(
+            "Are you sure you want to cancel this booking?"
+        );
+
+
+    if (!confirmation) {
+
+        return;
+
+    }
+
+
+    fetch(
+        "/api/bookings/" + id,
+        {
+            method: "DELETE"
+        }
+    )
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Cancellation failed"
+            );
+
+        }
+
+        return response.text();
+
+    })
+
+    .then(message => {
+
+        alert(message);
+
+        loadBookings();
+
+    })
+
+    .catch(error => {
+
+        console.error(error);
+
+        alert(
+            "Unable to cancel booking."
+        );
+
+    });
+
+}
+
+
+function logout() {
+
+    localStorage.removeItem("userEmail");
+
+    localStorage.removeItem("hotelName");
+
+    localStorage.removeItem("roomType");
+
+    localStorage.removeItem("price");
+
+    alert("Logged out successfully!");
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

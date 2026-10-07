@@ -1,0 +1,644 @@
+/* ================================
+   GENERAL
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8fc;
+    color: #263238;
+    overflow-x: hidden;
+}
+
+
+/* ================================
+   NAVIGATION
+================================ */
+
+nav {
+    width: 100%;
+    min-height: 70px;
+
+    padding: 15px 6%;
+
+    background: #173f5f;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+nav h2 {
+    color: white;
+    font-size: 24px;
+}
+
+nav div {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #ffd166;
+}
+
+
+/* ================================
+   HERO
+================================ */
+
+.hero {
+    width: 100%;
+    min-height: 480px;
+
+    padding: 80px 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(23, 63, 95, 0.82),
+            rgba(39, 110, 145, 0.78)
+        );
+
+    color: white;
+}
+
+.hero h1 {
+    max-width: 850px;
+
+    font-size: 52px;
+    line-height: 1.15;
+
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 650px;
+
+    font-size: 20px;
+    line-height: 1.6;
+
+    margin-bottom: 35px;
+}
+
+
+/* ================================
+   BUTTON
+================================ */
+
+.button {
+    display: inline-block;
+
+    padding: 14px 32px;
+
+    background: #f4a261;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    border-radius: 30px;
+
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: #e76f51;
+
+    transform: translateY(-3px);
+}
+
+
+/* ================================
+   WELCOME
+================================ */
+
+.welcome {
+    max-width: 850px;
+
+    margin: auto;
+
+    padding: 70px 25px;
+
+    text-align: center;
+}
+
+.welcome h2 {
+    font-size: 34px;
+
+    color: #173f5f;
+
+    margin-bottom: 18px;
+}
+
+.welcome p {
+    color: #666;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+
+/* ================================
+   FEATURES
+================================ */
+
+.features {
+    width: 100%;
+
+    padding: 20px 6% 80px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 25px;
+}
+
+.feature-card {
+    background: white;
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+
+    min-width: 0;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.13);
+}
+
+.feature-icon {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8f4fa;
+
+    border-radius: 50%;
+
+    font-size: 34px;
+}
+
+.feature-card h3 {
+    color: #2878a8;
+
+    font-size: 21px;
+
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+}
+
+
+/* ================================
+   HOW IT WORKS
+================================ */
+
+.how-it-works {
+    width: 100%;
+
+    padding: 75px 6%;
+
+    background: white;
+
+    text-align: center;
+}
+
+.how-it-works > h2 {
+    font-size: 34px;
+
+    color: #173f5f;
+
+    margin-bottom: 45px;
+}
+
+.steps {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 25px;
+}
+
+.step {
+    padding: 20px;
+
+    text-align: center;
+}
+
+.step span {
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2878a8;
+
+    color: white;
+
+    border-radius: 50%;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.step h3 {
+    color: #173f5f;
+
+    margin-bottom: 10px;
+
+    font-size: 19px;
+}
+
+.step p {
+    color: #666;
+
+    line-height: 1.5;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   CALL TO ACTION
+================================ */
+
+.cta {
+    width: 100%;
+
+    padding: 80px 20px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #173f5f,
+            #2878a8
+        );
+
+    color: white;
+}
+
+.cta h2 {
+    font-size: 36px;
+
+    margin-bottom: 15px;
+}
+
+.cta p {
+    font-size: 18px;
+
+    margin-bottom: 30px;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer {
+    background: #102f45;
+
+    color: white;
+
+    padding: 45px 6% 25px;
+
+    text-align: center;
+}
+
+.footer-content h3 {
+    font-size: 22px;
+
+    margin-bottom: 10px;
+}
+
+.footer-content p {
+    color: #cbd5dc;
+
+    margin-bottom: 25px;
+}
+
+.footer-links {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.footer-links a {
+    color: white;
+
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #ffd166;
+}
+
+.copyright {
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255,255,255,0.15);
+
+    color: #b8c5cc;
+
+    font-size: 14px;
+}
+
+
+/* ================================
+   FORM PAGES
+================================ */
+
+.form-container {
+    width: 420px;
+    max-width: 90%;
+
+    margin: 60px auto;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h1 {
+    text-align: center;
+
+    color: #173f5f;
+
+    margin-bottom: 25px;
+}
+
+.form-container input {
+    width: 100%;
+
+    padding: 13px;
+
+    margin: 8px 0;
+
+    border: 1px solid #ccc;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+}
+
+.form-container input:focus {
+    outline: none;
+
+    border-color: #2878a8;
+}
+
+.form-container button {
+    width: 100%;
+
+    padding: 13px;
+
+    margin-top: 15px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2878a8;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background: #173f5f;
+}
+
+.form-container label {
+    display: block;
+
+    margin-top: 12px;
+
+    font-weight: bold;
+}
+
+
+/* ================================
+   HOTEL PAGE
+================================ */
+
+.hotel-container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 60px 6%;
+}
+
+.hotel-container h1 {
+    text-align: center;
+
+    color: #173f5f;
+
+    margin-bottom: 35px;
+}
+
+.hotel-card {
+    background: white;
+
+    padding: 30px;
+
+    margin-bottom: 25px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 18px rgba(0, 0, 0, 0.08);
+
+    border-left: 6px solid #f4a261;
+}
+
+.hotel-card h2 {
+    color: #2878a8;
+
+    margin-bottom: 12px;
+}
+
+.hotel-card p {
+    margin: 8px 0;
+
+    color: #555;
+}
+
+.hotel-card button {
+    margin-top: 12px;
+
+    padding: 11px 24px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #2878a8;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.hotel-card button:hover {
+    background: #173f5f;
+}
+
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 900px) {
+
+    .features {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .steps {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    nav {
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 18px;
+    }
+
+    nav div {
+        flex-wrap: wrap;
+
+        justify-content: center;
+
+        gap: 15px;
+    }
+
+    .hero {
+        min-height: 420px;
+
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 17px;
+    }
+
+    .welcome h2 {
+        font-size: 28px;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .cta h2 {
+        font-size: 29px;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+    }
+}
