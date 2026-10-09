@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,7 +18,7 @@
 
 <nav>
 
-    <h2>🏨 Online Hotel Booking</h2>
+    <h2>ðŸ¨ Online Hotel Booking</h2>
 
     <div>
 
@@ -41,7 +41,7 @@
 
 <div class="hotel-container">
 
-    <h1>📋 My Bookings</h1>
+    <h1>ðŸ“‹ My Bookings</h1>
 
     <div id="bookings">
 
@@ -63,7 +63,7 @@ if (!email) {
 
         <div class="hotel-card">
 
-            <h2>🔐 Please Login</h2>
+            <h2>ðŸ” Please Login</h2>
 
             <p>
                 Please login to view your bookings.
@@ -94,7 +94,7 @@ function goToLogin() {
 function loadBookings() {
 
     fetch(
-        "/api/bookings/email/"
+        "https://onlinehotelbooking-backend.onrender.com/api/bookings/email/"
         + encodeURIComponent(email)
     )
 
@@ -124,7 +124,7 @@ function loadBookings() {
 
                 <div class="hotel-card">
 
-                    <h2>📭 No Bookings Found</h2>
+                    <h2>ðŸ“­ No Bookings Found</h2>
 
                     <p>
                         You have not made any bookings yet.
@@ -160,7 +160,7 @@ function loadBookings() {
             card.innerHTML = `
 
                 <h2>
-                    🏨 ${booking.hotelName}
+                    ðŸ¨ ${booking.hotelName}
                 </h2>
 
                 <p>
@@ -195,7 +195,7 @@ function loadBookings() {
 
                 <p>
                     <strong>Total Price:</strong>
-                    ₹${Number(booking.price)
+                    â‚¹${Number(booking.price)
                         .toLocaleString("en-IN")}
                 </p>
 
@@ -203,7 +203,7 @@ function loadBookings() {
                     <strong>Status:</strong>
 
                     <span style="color:green;">
-                        ✅ Confirmed
+                        âœ… Confirmed
                     </span>
 
                 </p>
@@ -212,7 +212,7 @@ function loadBookings() {
                     type="button"
                     onclick="cancelBooking(${booking.id})">
 
-                    ❌ Cancel Booking
+                    âŒ Cancel Booking
 
                 </button>
 
@@ -233,7 +233,7 @@ function loadBookings() {
 
             <div class="hotel-card">
 
-                <h2>❌ Unable to Load Bookings</h2>
+                <h2>âŒ Unable to Load Bookings</h2>
 
                 <p>
                     There was a problem connecting
@@ -269,7 +269,7 @@ function cancelBooking(id) {
 
 
     fetch(
-        "/api/bookings/" + id,
+        "https://onlinehotelbooking-backend.onrender.com/api/bookings/" + id,
         {
             method: "DELETE"
         }
